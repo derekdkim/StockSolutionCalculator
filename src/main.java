@@ -35,7 +35,11 @@ public class main {
             result = (c2 * v2) / v1 ;
 
             //Display result.
-            System.out.println(result);
+            if (result > 0) {
+                System.out.printf("Initial concentration = %,.3f.\n", result);
+            } else {
+                System.out.println(result);
+            }
 
         } else if (operation.equals("c2")) {
 
@@ -55,7 +59,11 @@ public class main {
             result = (c1 * v1) / v2 ;
 
             //Display result.
-            System.out.println(result);
+            if (result > 0) {
+                System.out.printf("Final concentration = %,.3f.\n", result);
+            } else {
+                System.out.println(result);
+            }
 
         } else if (operation.equals("v1")) {
 
@@ -75,7 +83,11 @@ public class main {
             result = (c2 * v2) / c1 ;
 
             //Display result.
-            System.out.println(result);
+            if (result > 0) {
+                System.out.printf("Initial volume = %,.3f.\n", result);
+            } else {
+                System.out.println(result);
+            }
 
         } else if (operation.equals("v2")) {
 
@@ -95,7 +107,12 @@ public class main {
             result = (c1 * v1) / c2 ;
 
             //Display result.
-            System.out.println(result);
+            if (result > 0) {
+                System.out.printf("Final volume = %,.3f.\n", result);
+            } else {
+                System.out.println(result);
+            }
+
 
         } else {
             System.out.println("Please select a valid operation.");
@@ -103,3 +120,4 @@ public class main {
 
     }
 }
+//Need to fix displaying negative numbers. Maybe decimal place == input integer length.
