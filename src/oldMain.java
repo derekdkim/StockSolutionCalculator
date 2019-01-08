@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 
-public class main {
+public class oldMain {
 
     public static void main(String[] args) {
 
