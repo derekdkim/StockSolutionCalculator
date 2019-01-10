@@ -3,8 +3,9 @@ package Calculator;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.event.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CalcGUI extends JFrame {
 
@@ -58,15 +59,18 @@ public class CalcGUI extends JFrame {
         FinPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
         // Create buttons
-        JButton CalcButton = new JButton("Calculate");
-        JButton ResetButton = new JButton("Reset");
+        CalcButton = new JButton("Calculate");
+        ResetButton = new JButton("Reset");
+
+        // Add action listeners to buttons.
+        CalcButton.addActionListener(new CalcButtonListener());
 
         // Button Panel
-        JPanel ButtonPanel = new JPanel();
+        ButtonPanel = new JPanel();
         ButtonPanel.add(CalcButton);
         ButtonPanel.add(ResetButton);
 
-        // Set Layout to 2 x 2
+        // Set Layout of frame.
         setLayout(new BorderLayout());
 
         // Add contents on grid
@@ -78,4 +82,33 @@ public class CalcGUI extends JFrame {
         pack();
         setVisible(true);
     }
+
+    private class CalcButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+            // Calculator resides within local scope to ensure that CalcButton can be used multiple times without error.
+            {
+                // Create new instance of calculator.
+                StockCalc Calculator = new StockCalc();
+
+                // Enter values of fields into corresponding StockCalc variables.
+                Calculator.setC1(Double.parseDouble(C1Field.getText()));
+                Calculator.setC2(Double.parseDouble(C2Field.getText()));
+                Calculator.setV1(Double.parseDouble(V1Field.getText()));
+                Calculator.setV2(Double.parseDouble(V2Field.getText()));
+
+                // Calculate
+                Calculator.calculate();
+
+                // Enter values of the 4 variables in fields.
+                C1Field.setText(String.valueOf(Calculator.getC1()));
+                C2Field.setText(String.valueOf(Calculator.getC2()));
+                V1Field.setText(String.valueOf(Calculator.getV1()));
+                V2Field.setText(String.valueOf(Calculator.getV2()));
+            }
+
+        }
+
+    }
+
 }
