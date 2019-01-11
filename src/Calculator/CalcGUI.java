@@ -28,7 +28,7 @@ public class CalcGUI extends JFrame {
         C1Field = new JTextField("0", 15);
 
         // V1
-        V1Label = new JLabel("Initial Volume (C1): ");
+        V1Label = new JLabel("Initial Volume (V1): ");
         V1Field = new JTextField("0", 15);
 
         // C2
@@ -36,7 +36,7 @@ public class CalcGUI extends JFrame {
         C2Field = new JTextField("0", 15);
 
         // V2
-        V2Label = new JLabel("Final Volume (C1): ");
+        V2Label = new JLabel("Final Volume (V2): ");
         V2Field = new JTextField("0", 15);
 
 
@@ -64,6 +64,7 @@ public class CalcGUI extends JFrame {
 
         // Add action listeners to buttons.
         CalcButton.addActionListener(new CalcButtonListener());
+        ResetButton.addActionListener(new ResetButtonListener());
 
         // Button Panel
         ButtonPanel = new JPanel();
@@ -86,7 +87,7 @@ public class CalcGUI extends JFrame {
     private class CalcButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 
-            // Calculator resides within local scope to ensure that CalcButton can be used multiple times without error.
+            // Calculator object resides within local scope to ensure that CalcButton can be used multiple times without error.
             {
                 // Create new instance of calculator.
                 StockCalc Calculator = new StockCalc();
@@ -97,7 +98,7 @@ public class CalcGUI extends JFrame {
                 Calculator.setV1(Double.parseDouble(V1Field.getText()));
                 Calculator.setV2(Double.parseDouble(V2Field.getText()));
 
-                // Calculate
+                // Call calculate method
                 Calculator.calculate();
 
                 // Enter values of the 4 variables in fields.
@@ -109,6 +110,17 @@ public class CalcGUI extends JFrame {
 
         }
 
+    }
+
+    private class ResetButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+            // Set all values of text fields to 0.
+            C1Field.setText("0");
+            C2Field.setText("0");
+            V1Field.setText("0");
+            V2Field.setText("0");
+        }
     }
 
 }

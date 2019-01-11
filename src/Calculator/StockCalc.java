@@ -3,10 +3,8 @@ package Calculator;
 import javax.swing.JOptionPane;
 
 public class StockCalc {
-    private double v1;
-    private double v2;
-    private double c1;
-    private double c2;
+    private double v1, v2, c1, c2;
+    private int MINIMUM_SIG_DIG;
 
     // Initial constructor
     public StockCalc() {
@@ -19,6 +17,7 @@ public class StockCalc {
     int calculate() {
         // Error 1: More than one variable is equal to 0.
         if (zeroChecker()) {
+            JOptionPane.showMessageDialog(null, "Error 1: More than one variable is equal to 0.");
             return 1;
         }
 
@@ -33,32 +32,37 @@ public class StockCalc {
         }
         // Error 2: No variable set to 0.
         else {
+            JOptionPane.showMessageDialog(null, "Error 2: No variable set to 0.");
             return 2;
         }
+
+        // Determine significant digits.
+        sigDigFinder();
+
 
         // If method runs to the end without encountering an error, return 0.
         return 0;
     }
 
     // Formulas
-    void findV1() {
+    private void findV1() {
         v1 = c2 * v2 / c1;
-        JOptionPane.showMessageDialog(null, v1);
+        JOptionPane.showMessageDialog(null, "V1: " + v1);
     }
 
-    void findV2() {
+    private void findV2() {
         v2 = c1 * v1 / c2;
-        JOptionPane.showMessageDialog(null, v2);
+        JOptionPane.showMessageDialog(null, "V2: " + v2);
     }
 
-    void findC1() {
+    private void findC1() {
         c1 = c2 * v2 / v1;
-        JOptionPane.showMessageDialog(null, c1);
+        JOptionPane.showMessageDialog(null, "C1: " + c1);
     }
 
-    void findC2() {
+    private void findC2() {
         c2 = c1 * v1 / v2;
-        JOptionPane.showMessageDialog(null, c2);
+        JOptionPane.showMessageDialog(null, "C2: " + c2);
     }
 
     // Setters (input)
@@ -110,5 +114,52 @@ public class StockCalc {
         } else {
             return false;
         }
+    }
+
+    // Determine lowest significant digit of the factors involved.
+    private void sigDigFinder() {
+        // Initialize arrays.
+        String[] nums = new String[4];
+        int[] sigDigs = new int[4];
+
+        // Convert doubles to strings for counting.
+        nums[0] = String.valueOf(c1);
+        nums[1] = String.valueOf(c2);
+        nums[2] = String.valueOf(v1);
+        nums[3] = String.valueOf(v2);
+
+        // Find the significant digits of each factor.
+        for (int i = 0; i < nums.length; i++) {
+            int count = 0;
+            // If it has decimal digits:
+            if (nums[i].contains(".")) {
+                // Add up the digits left and right of "."
+                count += (nums[i].substring(0, nums[i].indexOf("."))).length() + (nums[i].substring(nums[i].indexOf(".") + 1)).length();
+                sigDigs[i] = count;
+            } else {
+                String choppedNum = nums[i];
+                // Ensure choppedNum is not 0 (has a length of 1).
+                while (choppedNum.endsWith("0") && choppedNum.length() != 1) {
+                    // Create a substring with the last 0 cut off.
+                    choppedNum = choppedNum.substring(0, choppedNum.lastIndexOf("0"));
+
+                    // Count all digits that are left of the last 0.
+                    if (!choppedNum.endsWith("0")) {
+                        count += choppedNum.length();
+                    }
+                }
+                // If it's 0, count will be 0 as well. choppedNum count will be added to array after cutting off all trailing 0's.
+                sigDigs[i] = count;
+            }
+        }
+        int min = 100;
+        for (int sigDig : sigDigs) {
+            if (sigDig <= min && sigDig != 0) {
+                min = sigDig;
+            }
+        }
+
+        // Assign minimum significant digits.
+        MINIMUM_SIG_DIG = min;
     }
 }

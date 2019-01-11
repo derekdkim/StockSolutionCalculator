@@ -5,7 +5,5 @@
 Stock Solution Calculator was developed as a beginner-level project to practice writing Java code.
 
 Unimplemented Features:
-1. Reset button ActionListener.
-2. Error dialog messages.
-3. Number formatting to avoid gross trails of digits with subsequent calculations.
-4. Package into JAR or EXE for standalone use.
+1. Number formatting to maintain significant digits.
+2. Package into JAR or EXE for standalone use.
