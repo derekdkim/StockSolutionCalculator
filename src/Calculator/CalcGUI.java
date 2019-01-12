@@ -93,10 +93,10 @@ public class CalcGUI extends JFrame {
                 StockCalc Calculator = new StockCalc();
 
                 // Enter values of fields into corresponding StockCalc variables.
-                Calculator.setC1(Double.parseDouble(C1Field.getText()));
-                Calculator.setC2(Double.parseDouble(C2Field.getText()));
-                Calculator.setV1(Double.parseDouble(V1Field.getText()));
-                Calculator.setV2(Double.parseDouble(V2Field.getText()));
+                Calculator.setC1(Double.parseDouble(C1Field.getText()), C1Field.getText());
+                Calculator.setC2(Double.parseDouble(C2Field.getText()), C2Field.getText());
+                Calculator.setV1(Double.parseDouble(V1Field.getText()), V1Field.getText());
+                Calculator.setV2(Double.parseDouble(V2Field.getText()), V2Field.getText());
 
                 // Call calculate method
                 Calculator.calculate();

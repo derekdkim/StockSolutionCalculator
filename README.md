@@ -4,6 +4,15 @@
 
 Stock Solution Calculator was developed as a beginner-level project to practice writing Java code.
 
+Features:
+- Rounds results to significant digits.
+- Supports scientific notations (eg. 1.207E7).
+
+To use:
+1. Fill out 3 of the 4 factors.
+2. Leave the desired answer as 0.
+3. Press the Calculate button.
+4. Replace factors as necessary or Reset to clear the calculator.
+
 Unimplemented Features:
-1. Number formatting to maintain significant digits.
-2. Package into JAR or EXE for standalone use.
+1. Package into JAR or EXE for standalone binary release.
